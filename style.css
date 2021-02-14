@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    font-family: "Lucida Sans", sans-serif;
+    color: orange;
+}
+
+main {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+input[type="button"] {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+    font-size: 40px;
+    padding: 10px 15px;
+    margin: 0px 30px 50px 30px;
+    background-color: transparent;
+    letter-spacing: 2px;
+    opacity: 0.2;
+    transition: opacity 100ms;
+}
+
+input[type="button"]:hover {
+    opacity: 1;
+}
+
+.active {
+    opacity: 1 !important;
+}
