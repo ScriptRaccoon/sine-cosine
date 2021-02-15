@@ -20,7 +20,7 @@ main {
     width: 1170px;
 }
 
-input[type="button"] {
+.fnBtn {
     border: none;
     outline: none;
     cursor: pointer;
@@ -35,7 +35,7 @@ input[type="button"] {
     transition: opacity 100ms;
 }
 
-input[type="button"]:hover {
+.fnBtn:hover {
     opacity: 1;
 }
 
@@ -47,4 +47,17 @@ input[type="button"]:hover {
     font-size: 20px;
     float: left;
     width: 200px;
+}
+
+#pauseBtn {
+    font-size: 30px;
+    cursor: pointer;
+    opacity: 0.4;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#pauseBtn:hover {
+    opacity: 1;
 }

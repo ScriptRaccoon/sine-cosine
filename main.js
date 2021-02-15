@@ -28,7 +28,7 @@ const point2 = { x: null, y: null, radius: 3, color: pointColors[0], filled: tru
 
 let currentFunctionName = "sin";
 
-const buttons = document.querySelectorAll("input[type='button']");
+const buttons = document.querySelectorAll(".fnBtn");
 
 buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -55,6 +55,8 @@ function showValue(angle, value) {
 }
 
 // main draw function
+
+let animationId;
 
 function draw() {
     clearContext(ctx1);
@@ -87,7 +89,7 @@ function draw() {
         switchColor(point2);
     }
 
-    requestAnimationFrame(draw);
+    animationId = requestAnimationFrame(draw);
 }
 
 // execute draw function
@@ -134,3 +136,20 @@ function clearContext(ctx) {
 function flipContext(ctx) {
     ctx.setTransform(1, 0, 0, -1, 0, ctx.canvas.height);
 }
+
+// pause function
+
+let paused = false;
+const pauseBtn = document.getElementById("pauseBtn");
+
+pauseBtn.addEventListener("click", () => {
+    if (paused) {
+        paused = false;
+        animationId = requestAnimationFrame(draw);
+        pauseBtn.classList = "far fa-pause-circle";
+    } else {
+        paused = true;
+        cancelAnimationFrame(animationId);
+        pauseBtn.classList = "far fa-play-circle";
+    }
+});
