@@ -42,3 +42,9 @@ input[type="button"]:hover {
 .active {
     opacity: 1 !important;
 }
+
+#valueDisplay {
+    font-size: 20px;
+    float: left;
+    width: 200px;
+}

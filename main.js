@@ -26,7 +26,7 @@ const point2 = { x: null, y: null, radius: 3, color: pointColors[0], filled: tru
 
 // buttons to switch between functions sine and coine
 
-let currentFunctionName = "sine";
+let currentFunctionName = "sin";
 
 const buttons = document.querySelectorAll("input[type='button']");
 
@@ -47,6 +47,13 @@ buttons.forEach((btn) => {
 
 let angle = 0;
 
+// show value
+
+const valueDisplay = document.getElementById("valueDisplay");
+function showValue(angle, value) {
+    valueDisplay.innerText = `${currentFunctionName}(${angle}°) ≈ ${value.toFixed(2)}`;
+}
+
 // main draw function
 
 function draw() {
@@ -59,12 +66,14 @@ function draw() {
 
     point2.x = 10 + angle;
 
-    if (currentFunctionName === "sine") {
+    if (currentFunctionName === "sin") {
         drawLine(point1.x, point1.y, point1.x, bigCircle.y, ctx1);
         point2.y = point1.y;
+        showValue(angle, Math.sin(angle * (Math.PI / 180)));
     } else {
         drawLine(point1.x, point1.y, bigCircle.x, point1.y, ctx1);
         point2.y = point1.x;
+        showValue(angle, Math.cos(angle * (Math.PI / 180)));
     }
 
     drawCircle(point1, ctx1);
