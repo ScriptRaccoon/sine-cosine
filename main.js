@@ -1,19 +1,17 @@
-const canvas1 = document.getElementById("canvas1");
-const ctx1 = canvas1.getContext("2d");
+// setup drawing contexts
 
-const canvas2 = document.getElementById("canvas2");
-const ctx2 = canvas2.getContext("2d");
+const ctx1 = document.getElementById("canvas1").getContext("2d");
+const ctx2 = document.getElementById("canvas2").getContext("2d");
 
-ctx1.setTransform(1, 0, 0, -1, 0, canvas1.height);
-ctx2.setTransform(1, 0, 0, -1, 0, canvas2.height);
+flipContext(ctx1);
+flipContext(ctx2);
 
 ctx1.lineWidth = 4;
 ctx2.globalAlpha = 0.3;
 
-ctx1.strokeStyle = "red";
-ctx2.strokeStyle = "red";
+const pointColors = ["red", "#0050FF"];
 
-let angle = 0;
+// setup drawing objects
 
 const bigCircle = {
     x: 200,
@@ -23,63 +21,77 @@ const bigCircle = {
     filled: false,
 };
 
-const point1 = { x: null, y: null, radius: 3, color: "red", filled: true };
-const point2 = { x: null, y: null, radius: 3, color: "red", filled: true };
+const point1 = { x: null, y: null, radius: 3, color: pointColors[0], filled: true };
+const point2 = { x: null, y: null, radius: 3, color: pointColors[0], filled: true };
 
-let currentFunction = "sine";
+// buttons to switch between functions sine and coine
 
-const btn = {
-    sine: document.getElementById("sineBtn"),
-    cosine: document.getElementById("cosineBtn"),
-};
+let currentFunctionName = "sine";
 
-for (const name of Object.keys(btn)) {
-    btn[name].addEventListener("click", () => {
-        if (currentFunction === name) return;
-        for (const key of Object.keys(btn)) {
-            btn[key].classList.remove("active");
-        }
-        btn[name].classList.add("active");
+const buttons = document.querySelectorAll("input[type='button']");
+
+buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const functionName = btn.id.replace("Btn", "");
+        if (currentFunctionName === functionName) return;
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
         angle = 0;
         clearContext(ctx1);
         clearContext(ctx2);
-        currentFunction = name;
+        currentFunctionName = functionName;
     });
-}
+});
 
-draw();
+// angle of the point on the circle
+
+let angle = 0;
+
+// main draw function
 
 function draw() {
     clearContext(ctx1);
 
     drawCircle(bigCircle, ctx1);
 
-    point1.x = bigCircle.x + Math.cos((angle * Math.PI) / 180) * bigCircle.radius;
-    point1.y = bigCircle.y + Math.sin((angle * Math.PI) / 180) * bigCircle.radius;
-
-    drawCircle(point1, ctx1);
-
-    if (currentFunction === "sine") {
-        drawLine(point1.x, point1.y, point1.x, bigCircle.y, ctx1);
-    } else {
-        drawLine(point1.x, point1.y, bigCircle.x, point1.y, ctx1);
-    }
+    point1.x = bigCircle.x + Math.cos(angle * (Math.PI / 180)) * bigCircle.radius;
+    point1.y = bigCircle.y + Math.sin(angle * (Math.PI / 180)) * bigCircle.radius;
 
     point2.x = 10 + angle;
-    point2.y = currentFunction === "sine" ? point1.y : point1.x;
 
+    if (currentFunctionName === "sine") {
+        drawLine(point1.x, point1.y, point1.x, bigCircle.y, ctx1);
+        point2.y = point1.y;
+    } else {
+        drawLine(point1.x, point1.y, bigCircle.x, point1.y, ctx1);
+        point2.y = point1.x;
+    }
+
+    drawCircle(point1, ctx1);
     drawCircle(point2, ctx2);
 
-    angle++;
+    angle += 1;
 
     if (angle === 720) {
         angle = 0;
-        point1.color = point1.color === "red" ? "#0050FF" : "red";
-        point2.color = point2.color === "red" ? "#0050FF" : "red";
+        switchColor(point1);
+        switchColor(point2);
     }
 
     requestAnimationFrame(draw);
 }
+
+// execute draw function
+
+draw();
+
+// switch colors between red and blue
+
+function switchColor(point) {
+    point.color = point.color === pointColors[0] ? pointColors[1] : pointColors[0];
+}
+
+// auxiliary draw function for a circle
 
 function drawCircle(circle, ctx) {
     if (circle.filled) ctx.fillStyle = circle.color;
@@ -91,7 +103,10 @@ function drawCircle(circle, ctx) {
     ctx.closePath();
 }
 
+// auxiliary draw function for a line
+
 function drawLine(x, y, u, v, ctx) {
+    ctx.strokeStyle = point1.color;
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(u, v);
@@ -99,6 +114,14 @@ function drawLine(x, y, u, v, ctx) {
     ctx.closePath();
 }
 
+// auxiliary function to clear canvas
+
 function clearContext(ctx) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
+// auxiliary function to clip canvas vertically
+
+function flipContext(ctx) {
+    ctx.setTransform(1, 0, 0, -1, 0, ctx.canvas.height);
 }
