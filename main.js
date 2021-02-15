@@ -84,14 +84,12 @@ function draw() {
     drawCircle(point1, ctx1);
     drawCircle(point2, ctx2);
 
+    drawLine(point2.x, point2.y, point2.x, bigCircle.y, ctx2);
+
     angle += speed;
 
     if (angle >= 720) {
         angle = 0;
-        switchColor(point1);
-        switchColor(point2);
-    } else if (angle <= 0) {
-        angle = 720;
         switchColor(point1);
         switchColor(point2);
     }
