@@ -49,15 +49,20 @@ main {
     width: 200px;
 }
 
-#pauseBtn {
-    font-size: 30px;
-    cursor: pointer;
-    opacity: 0.4;
+#controls {
     position: absolute;
-    top: 0;
+    top: -50px;
     right: 0;
+    font-size: 30px;
 }
 
-#pauseBtn:hover {
+#controls i {
+    cursor: pointer;
+    opacity: 0.2;
+    margin: 0px 5px;
+    transition: opacity 100ms;
+}
+
+#controls i:hover {
     opacity: 1;
 }

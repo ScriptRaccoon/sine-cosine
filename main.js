@@ -43,15 +43,18 @@ buttons.forEach((btn) => {
     });
 });
 
-// angle of the point on the circle
+// angle and speed of the point on the circle
 
 let angle = 0;
+let speed = 1;
 
 // show value
 
 const valueDisplay = document.getElementById("valueDisplay");
 function showValue(angle, value) {
-    valueDisplay.innerText = `${currentFunctionName}(${angle}°) ≈ ${value.toFixed(2)}`;
+    valueDisplay.innerText = `${currentFunctionName}(${angle.toFixed(
+        0
+    )}°) ≈ ${value.toFixed(2)}`;
 }
 
 // main draw function
@@ -81,10 +84,14 @@ function draw() {
     drawCircle(point1, ctx1);
     drawCircle(point2, ctx2);
 
-    angle += 1;
+    angle += speed;
 
-    if (angle === 720) {
+    if (angle >= 720) {
         angle = 0;
+        switchColor(point1);
+        switchColor(point2);
+    } else if (angle <= 0) {
+        angle = 720;
         switchColor(point1);
         switchColor(point2);
     }
@@ -152,4 +159,18 @@ pauseBtn.addEventListener("click", () => {
         cancelAnimationFrame(animationId);
         pauseBtn.classList = "far fa-play-circle";
     }
+});
+
+// speed function
+
+const fasterBtn = document.getElementById("fasterBtn");
+
+fasterBtn.addEventListener("click", () => {
+    speed *= 1.3;
+});
+
+const slowerBtn = document.getElementById("slowerBtn");
+
+slowerBtn.addEventListener("click", () => {
+    speed /= 1.3;
 });
