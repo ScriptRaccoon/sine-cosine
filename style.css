@@ -46,6 +46,7 @@ main {
 }
 
 #valueDisplay {
+    padding: 25px 0px;
     font-size: 20px;
     text-align: center;
 }

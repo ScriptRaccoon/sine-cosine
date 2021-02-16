@@ -35,6 +35,7 @@ const point2 = {
     filled: true,
     alpha: 0.2,
 };
+const point3 = { x: null, y: null, radius: 3, color: pointColors[0], filled: true };
 
 // switch colors between red and blue
 
@@ -62,8 +63,8 @@ drawCircle(bigCircle, ctx1);
 
 // auxiliary draw function for a line
 
-function drawLine(x, y, u, v, ctx) {
-    ctx.strokeStyle = point1.color;
+function drawLine(x, y, u, v, ctx, color = point1.color) {
+    ctx.strokeStyle = color;
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(u, v);
@@ -87,13 +88,13 @@ function flipContext(ctx) {
 
 let currentFunctionName = "sin";
 
-const buttons = document.querySelectorAll(".fnBtn");
+const fnButtons = document.querySelectorAll(".fnBtn");
 
-buttons.forEach((btn) => {
+fnButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
         const functionName = btn.id.replace("Btn", "");
         if (currentFunctionName === functionName) return;
-        buttons.forEach((b) => b.classList.remove("active"));
+        fnButtons.forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         angle = 0;
         clearContext(ctx1);
@@ -129,10 +130,21 @@ function draw() {
         drawLine(point1.x, point1.y, point1.x, bigCircle.y, ctx2);
         point2.y = point1.y;
         showValue(angle, Math.sin(angle * (Math.PI / 180)));
-    } else {
+    } else if (currentFunctionName === "cos") {
         drawLine(point1.x, point1.y, bigCircle.x, point1.y, ctx2);
         point2.y = point1.x;
         showValue(angle, Math.cos(angle * (Math.PI / 180)));
+    } else if (currentFunctionName === "tan") {
+        point2.y = bigCircle.y + Math.tan(angle * (Math.PI / 180)) * bigCircle.radius;
+        if (point2.y) {
+            point3.x = bigCircle.x + bigCircle.radius;
+            point3.y = point2.y;
+            drawCircle(point3, ctx2);
+            drawLine(point3.x, point3.y, point3.x, bigCircle.y, ctx2);
+            drawLine(point3.x, point3.y, point1.x, point1.y, ctx2, "green");
+            drawLine(bigCircle.x, bigCircle.y, point1.x, point1.y, ctx2, "green");
+            showValue(angle, Math.tan(angle * (Math.PI / 180)));
+        }
     }
 
     drawCircle(point1, ctx2);
