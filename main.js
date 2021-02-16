@@ -7,6 +7,7 @@ flipContext(ctx1);
 flipContext(ctx2);
 
 ctx1.lineWidth = 4;
+ctx2.lineWidth = 4;
 ctx2.globalAlpha = 0.3;
 
 const pointColors = ["red", "#0050FF"];
