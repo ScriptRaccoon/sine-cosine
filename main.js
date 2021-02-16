@@ -158,6 +158,7 @@ function draw() {
         angle = 0;
         switchColor(point1);
         switchColor(point2);
+        switchColor(point3);
     }
 
     animationId = requestAnimationFrame(draw);
