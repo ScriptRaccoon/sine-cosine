@@ -2,12 +2,14 @@
 
 const ctx1 = document.getElementById("canvas1").getContext("2d");
 const ctx2 = document.getElementById("canvas2").getContext("2d");
+const ctx3 = document.getElementById("canvas3").getContext("2d");
 
 flipContext(ctx1);
 flipContext(ctx2);
+flipContext(ctx3);
 
 ctx1.lineWidth = 4;
-ctx2.lineWidth = 4;
+ctx3.lineWidth = 4;
 ctx2.globalAlpha = 0.3;
 
 const pointColors = ["red", "#0050FF"];
@@ -64,6 +66,7 @@ let animationId;
 
 function draw() {
     clearContext(ctx1);
+    clearContext(ctx3);
 
     drawCircle(bigCircle, ctx1);
 
@@ -85,7 +88,7 @@ function draw() {
     drawCircle(point1, ctx1);
     drawCircle(point2, ctx2);
 
-    drawLine(point2.x, point2.y, point2.x, bigCircle.y, ctx2);
+    drawLine(point2.x, point2.y, point2.x, bigCircle.y, ctx3);
 
     angle += speed;
 

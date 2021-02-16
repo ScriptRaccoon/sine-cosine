@@ -66,3 +66,9 @@ main {
 #controls i:hover {
     opacity: 1;
 }
+
+#canvas3 {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
