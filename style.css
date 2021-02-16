@@ -75,6 +75,10 @@ main {
     opacity: 1;
 }
 
+#slowerBtn {
+    transform: scaleX(-1);
+}
+
 canvas {
     position: absolute;
     left: 0;

@@ -33,7 +33,6 @@ const point2 = {
     radius: 3,
     color: pointColors[0],
     filled: true,
-    alpha: 0.2,
 };
 const point3 = { x: null, y: null, radius: 3, color: pointColors[0], filled: true };
 
@@ -47,14 +46,12 @@ function switchColor(point) {
 
 function drawCircle(circle, ctx) {
     if (circle.filled) ctx.fillStyle = circle.color;
-    ctx.globalAlpha = circle.alpha || 1;
     ctx.strokeStyle = circle.color;
     ctx.beginPath();
     ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
     if (circle.filled) ctx.fill();
     ctx.stroke();
     ctx.closePath();
-    ctx.globalAlpha = 1;
 }
 
 // draw big circle once
