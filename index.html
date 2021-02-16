@@ -10,23 +10,21 @@
 </head>
 <body>
     <main>
-        <div>
+        <section id="functionContainer">
             <input type="button" value="Sine" id = "sinBtn" class="fnBtn active">
             <input type="button" value="Cosine" id = "cosBtn" class="fnBtn">
-        </div>
-        <div style="position: relative">
+        </section>        
+        <section id="canvasContainer">
             <div id="controls">
                 <i role="button" id="pauseBtn" class="far fa-pause-circle"></i>
                 <i role="button" id="slowerBtn" class="fas fa-fast-backward"></i>
                 <i role="button" id="fasterBtn" class="fas fa-fast-forward"></i>
             </div>            
-            <canvas id="canvas1" width="400" height="400"></canvas>    
-            <canvas id="canvas2" width="750" height="400"></canvas> 
-            <canvas id="canvas3" width="750" height="400"></canvas>
-        </div>
-        <div>
-            <span id="valueDisplay"></span>
-        </div>
+            <canvas id="canvas1" width="1200" height="400"></canvas>    
+            <canvas id="canvas2" width="1200" height="400"></canvas> 
+        </section>
+        <section id="valueDisplay">
+        </section>
             
     </main>
     <script src="main.js"></script>
